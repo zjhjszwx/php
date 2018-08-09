@@ -1,0 +1,6 @@
+{
+    "name": "zhangwen/resume",
+    "require": {
+        "erusev/parsedown":"*"
+    }
+}
