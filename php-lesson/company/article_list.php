@@ -1,3 +1,18 @@
+<?php
+
+require_once('tools.php');
+$type_id = get('type_id');
+$db = conn();
+//查询分类
+$stmt = $db->prepare("select * from nx_type where id=:type_id");
+$stmt->execute([":type_id"=>$type_id]);
+$type = $stmt->fetch();
+//查询属于改分类的文章
+$stmt = $db->prepare('select * from nx_article where type_id=:type_id');
+$stmt->execute([":type_id"=>$type_id]);
+$articles = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -119,97 +134,29 @@
     </section>
     <section class="article-content">
         <ul>
-            <li>
-                <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
-                </div>
-                <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
-                        <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
-                    </a>
-                </div>
-            </li>
 
+            <?php foreach($articles as $article){?>
             <li>
                 <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
+                    <p><?=$article['create_at']?></p>
                 </div>
                 <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
+                    <a href="article.php?id=<?=$article['id']?>">
+                        <h3><?=$article['title']?></h3>
                         <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
+                        <p>
+                            <?php
+                            $content = $article['content'];
+                            $content = preg_replace('#<.+?>#','',$content);
+                            echo (mb_substr($content,0,72));
+                            ?>...
+                         </p>
                     </a>
                 </div>
             </li>
-            <li>
-                <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
-                </div>
-                <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
-                        <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
-                </div>
-                <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
-                        <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
-                </div>
-                <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
-                        <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div class="article-date">
-                    <strong>01</strong>
-                    <p>2017/06</p>
-                    
-                </div>
-                <div class="article-info">
-                    <a href="article_list_content.html">
-                        <h3>如何获得健康饮水</h3>
-                        <i class="font">&#xe6aa;</i>
-                        <p>随着生活水平的不断提高，大家对健康饮用水的关注度越来越高，但对如何获取健康饮用水，还会存有很多疑惑。近期开能环保将以“水博士”名义就相关问题进行...</p>
-                        <span>2017/06/01</span>
-                    </a>
-                </div>
-            </li>
+            <?php }?>
+
+           
         </ul>
     </section>
     <div class="article_list_more_pages">
