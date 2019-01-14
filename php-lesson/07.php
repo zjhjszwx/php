@@ -24,6 +24,28 @@ $arr = [
 
 array_unique($arr);
 print_r($arr);
-
+//模拟登录
+$user = @$_POST['username'];
+$pass = @$_POST['password'];
+$users = [
+    "admin"=>"1",
+];
+$is_login = false;
+foreach($users as $k=>$v){
+    if($k == $user && $v == $pass){
+        $is_login = true;
+        break;
+    }
+}
+if($is_login){
+    echo "登录成功";
+}else {
+    echo "登录失败";
+}
 
 ?>
+<form method="post">
+    <p><input type="text" name="username"/></p>
+    <p><input type="text" name="password"/></p>
+    <input type="submit" value="登录"/>
+</form>
