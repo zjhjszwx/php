@@ -8,7 +8,7 @@
        
         // 连接数据库
         $db = new PDO('mysql:host=52.193.25.184;dbname=test','root','Zjhjszwx@1');
-        $sql = 'insert into resume(id) value(1)';
+        $sql = 'insert into user(id) value(1)';
         $stms = $db->prepare($sql);
         $stms->execute();
 
