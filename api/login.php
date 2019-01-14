@@ -29,6 +29,7 @@
         //     );
         //     echo json_encode($info);
         // }
+        echo json_encode("success");
     }catch(PDOException $e){
         die($e->getMessage());
     }
