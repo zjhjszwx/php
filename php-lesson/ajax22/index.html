@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nick-input">
+        <p><span>请输入你的昵称</span></p>
+        <input type="text" id="nick"/><button class="start-btn">提交</button>
+    </div>
+
+    <div class="chat-box">
+        <div class="show-box">
+            <div class="msg-box">
+                <p class="nickname"></p>
+                <p class="msg"></p>
+            </div>
+        </div>
+
+        <div class="msg-box">
+            <p>
+                <textarea name="msg" id="msg" cols="30" rows="10"></textarea>
+            </p>
+            <p><button class="send-btn">submit</button></p>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>
